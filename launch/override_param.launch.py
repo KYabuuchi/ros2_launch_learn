@@ -8,41 +8,53 @@ def generate_launch_description():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     config_path = os.path.join(script_dir, "../config/config.param.yaml")
 
-    node = Node(
+    node1 = Node(
         package="override_param",
         executable="main",
-        name="node",
+        name="node1",
         parameters=[
             {
                 "before1": "launch",
-                # "before2": "launch",
+                "before2": "launch",
             },
             config_path,
             {
                 "after1": "launch",
-                # "after2": "launch",
+                "after2": "launch",
             },
         ],
     )
-    # -> param,param, launch, launch
 
-    node_ns = Node(
+    node2 = Node(
         package="override_param",
         executable="main",
-        name="node",
+        name="node2",
         namespace="ns",
         parameters=[
             {
                 "before1": "launch",
-                # "before2": "launch",
+                "before2": "launch",
             },
             config_path,
             {
                 "after1": "launch",
-                # "after2": "launch",
+                "after2": "launch",
             },
         ],
     )
-    # -> param, param, param, param
 
-    return LaunchDescription([node, node_ns])
+    node3 = Node(
+        package="override_param",
+        executable="main",
+        name="node3",
+        namespace="ns",
+        parameters=[
+            config_path,
+            {
+                "after1": "launch",
+                "after2": "launch",
+            },
+        ],
+    )
+
+    return LaunchDescription([node1, node2, node3])

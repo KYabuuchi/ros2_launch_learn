@@ -1,21 +1,21 @@
 /**:
   ros__parameters:
-    before1: "wildcard param.yaml"
-    before2: "wildcard param.yaml"
-    after1: "wildcard param.yaml"
-    after2: "wildcard param.yaml"
+    before1: "param.yaml (wildcard)"
+    before2: "param.yaml (wildcard)"
+    after1: "param.yaml (wildcard)"
+    after2: "param.yaml (wildcard)"
 
 node1:
   ros__parameters:
-    before2: "node-specific param.yaml (node1)"
-    after2: "node-specific param.yaml (node1)"
+    before2: "param.yaml (node1)"
+    after2: "param.yaml (node1)"
 
 ns/node2:
   ros__parameters:
-    before2: "node-specific param.yaml (ns/node2)"
-    after2: "node-specific param.yaml (ns/node2)"
+    before2: "param.yaml (ns/node2)"
+    after2:  "param.yaml (ns/node2)"
 
 ns/node3:
   ros__parameters:
-    before2: "node-specific param.yaml (ns/node3)"
-    after2: "node-specific param.yaml (ns/node3)"
+    before2: "param.yaml (ns/node3)"
+    after2:  "param.yaml (ns/node3)"

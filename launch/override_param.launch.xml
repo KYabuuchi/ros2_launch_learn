@@ -1,7 +1,7 @@
 <launch>
   <arg name="param_file" default="$(find-pkg-share override_param)/config/config.param.yaml"/>
 
-  <node if="true" name="node" pkg="override_param" exec="main" output="screen">
+  <node name="node1" pkg="override_param" exec="main" output="screen">
       <param name="before1" value="launch"/>
       <param name="before2" value="launch"/>
       <param from="$(var param_file)"/>
@@ -9,11 +9,9 @@
       <param name="after2" value="launch"/>
   </node>
 
-  <arg name="var" default="launch"/>
-
   <group>
     <push-ros-namespace namespace="ns"/>
-    <node name="node" pkg="override_param" exec="main" output="screen">
+    <node name="node2" pkg="override_param" exec="main" output="screen">
         <param name="before1" value="launch"/>
         <param name="before2" value="launch"/>
         <param from="$(var param_file)"/>
@@ -21,7 +19,7 @@
         <param name="after2" value="launch"/>
     </node>
 
-    <node name="node2" pkg="override_param" exec="main" output="screen">
+    <node name="node3" pkg="override_param" exec="main" output="screen">
         <param from="$(var param_file)"/>
         <param name="after1" value="launch"/>
         <param name="after2" value="launch"/>

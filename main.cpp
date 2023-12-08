@@ -1,22 +1,18 @@
 #include <rclcpp/rclcpp.hpp>
-
 class Test : public rclcpp::Node
 {
 public:
   Test() : Node("test")
   {
     auto print = [this](const std::string& label) -> void {
-      RCLCPP_INFO_STREAM(get_logger(), label << " " << declare_parameter<std::string>(label, "initial"));
+      RCLCPP_INFO_STREAM(get_logger(), label << ": " << declare_parameter<std::string>(label, "initial"));
     };
 
     print("before1");
     print("before2");
     print("after1");
     print("after2");
-    print("/namespace/param");
   }
-
-private:
 };
 
 int main(int argc, char* argv[])

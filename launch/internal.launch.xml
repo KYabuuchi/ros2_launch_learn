@@ -1,0 +1,12 @@
+<launch>
+  <arg name="param_file"/>
+  <arg name="var"/>
+
+  <node name="node" pkg="override_param" exec="main" output="screen">
+      <param from="$(var param_file)"/>
+      <param name="before1" value="$(var var)"/>
+      <param name="before2" value="$(var var)"/>
+      <param name="after1" value="$(var var)"/>
+      <param name="after2" value="$(var var)"/>
+  </node>
+</launch>

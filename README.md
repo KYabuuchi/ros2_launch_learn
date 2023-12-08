@@ -1,6 +1,5 @@
 # how ros2 launch overrides duplicated parameters
 
-## [description of ros2/launch_ros](https://github.com/ros2/launch_ros/blob/2bf4e6057dea57669c19395f6f39d390bd420ee7/launch_ros/launch_ros/actions/node.py#L175-L182)
 
 ## config.param.yaml
 
@@ -59,6 +58,9 @@ ns/node3:
 </launch>
 ```
 
+## [description of ros2/launch_ros](https://github.com/ros2/launch_ros/blob/2bf4e6057dea57669c19395f6f39d390bd420ee7/launch_ros/launch_ros/actions/node.py#L175-L182)
+
+
 ## The result
 
 * `ros2 launch override_param override_param.launch.xml`
@@ -69,9 +71,9 @@ ns/node3:
 | node1    | before1        | param.yaml (wildcard)  | asigned most later                                              |
 | node1    | before2        | param.yaml (node1)     | fully qualified node name in param.yaml                         |
 | node1    | after1         | launch                 | asigned most later                                              |
-| node1    | after2         | param.yaml (node1)     | fully qualified node name  in param.yaml                        |
+| node1    | after2         | param.yaml (node1)     | fully qualified node name in param.yaml                         |
 | ns.node2 | before1        | param.yaml (wildcard)  | asigned most later                                              |
-| ns.node2 | before2        | param.yaml (ns/node2)  | fully qualified node name                                       |
+| ns.node2 | before2        | param.yaml (ns/node2)  | fully qualified node name in param.yaml                         |
 | ns.node2 | after1         | param.yaml (wildcard)  | :fire: I DONT KNOW WHY. I EXPECT `launch` :fire:                |
 | ns.node2 | after2         | param.yaml (ns/node2)  | fully qualified node name in param.yaml                         |
 | ns.node3 | before1        | param.yaml  (wildcard) | asigned most later                                              |

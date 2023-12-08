@@ -1,0 +1,19 @@
+<launch>
+    <arg name="before1" default="launch"/>
+    <arg name="before2" default="launch"/>
+    <arg name="after1" default="launch"/>
+    <arg name="after2" default="launch"/>
+
+    <arg name="param_file" default="$(find-pkg-share override_param)/config/config.param.yaml"/>
+
+    <node name="test" pkg="override_param" exec="main" output="screen">
+        <param name="before1" value="$(var before1)"/>
+        <param name="before2" value="$(var before2)"/>
+        <param from="$(var param_file)"/>
+        <param name="after1" value="$(var after1)"/>
+        <!-- <param name="after2" value="$(var after2)"/> -->
+
+        <!-- <param name="/namespace/param" value="fully_qualified_launch"/> -->
+        <param name="param" value="launch"/>
+    </node>
+</launch>

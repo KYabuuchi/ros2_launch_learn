@@ -5,7 +5,7 @@ public:
   Test() : Node("test")
   {
     auto print = [this](const std::string& label) -> void {
-      RCLCPP_INFO_STREAM(get_logger(), label << ": " << declare_parameter<std::string>(label, "initial"));
+      RCLCPP_INFO_STREAM(get_logger(), label << ": " << declare_parameter<std::string>(label, "default value defined in node"));
     };
 
     print("before1");

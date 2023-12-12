@@ -9,70 +9,49 @@
 
 * `ros2 launch override_param override_param.launch.xml`
 
-| node     | parameter name | actual stored value    | reason why the value is stored                        |
-|----------|----------------|------------------------|-------------------------------------------------------|
-| node1    | before1        | param.yaml (wildcard)  | asigned most later                                    |
-| node1    | before2        | param.yaml (node1)     | asigned by fully qualified node name in param.yaml    |
-| node1    | after1         | launch                 | asigned most later                                    |
-| node1    | after2         | param.yaml (node1)     | asigned by fully qualified node name in param.yaml    |
-| ns.node2 | before1        | param.yaml (wildcard)  | asigned most later                                    |
-| ns.node2 | before2        | param.yaml (ns/node2)  | asigned by fully qualified node name in param.yaml    |
-| ns.node2 | after1         | param.yaml (wildcard)  | :x: I DONT KNOW WHY. i expect `launch`                |
-| ns.node2 | after2         | param.yaml (ns/node2)  | asigned by fully qualified node name in param.yaml    |
-| ns.node3 | before1        | param.yaml  (wildcard) | asigned most later                                    |
-| ns.node3 | before2        | param.yaml (ns/node3)  | asigned by fully qualified node name in param.yaml    |
-| ns.node3 | after1         | launch                 | asigned most later                                    |
-| ns.node3 | after2         | launch                 | :x: I DONT KNOW WHY. i expect `param.yaml (ns/node3)` |
+| node     | parameter name | actual stored value           | reason why the value is stored         |
+|----------|----------------|-------------------------------|----------------------------------------|
+| ns.node1 | before1        | param.yaml (wildcard)         | asigned most later                     |
+| ns.node1 | before2        | launch                        | asigned only in launch.xml             |
+| ns.node1 | after1         | param.yaml (wildcard)         | :x: I DONT KNOW WHY. i expect `launch`because launch is assigned most later. |
+| ns.node1 | after2         | launch                        | asigned only in launch.xml             |
+| ns.node2 | before1        | param.yaml  (wildcard)        | asigned only in param.yaml             |
+| ns.node2 | before2        | default value defined in node | not asigned anywhere                   |
+| ns.node2 | after1         | launch                        | asigned only in launch.xml             |
+| ns.node2 | after2         | launch                        | asigned only in launch.xml             |
 
-## config.param.yaml
+### Problem
+
+As shown below, the difference between node1 and node2 is the presence of **before1/2** assignments in the launch file, but the **after1** value changes.
+
+## Input files
+
+### config.param.yaml
 
 ```yaml
 /**:
   ros__parameters:
     before1: "param.yaml (wildcard)"
-    before2: "param.yaml (wildcard)"
     after1: "param.yaml (wildcard)"
-    after2: "param.yaml (wildcard)"
-
-node1:
-  ros__parameters:
-    before2: "param.yaml (node1)"
-    after2: "param.yaml (node1)"
-
-ns/node2:
-  ros__parameters:
-    before2: "param.yaml (ns/node2)"
-    after2:  "param.yaml (ns/node2)"
-
-ns/node3:
-  ros__parameters:
-    before2: "param.yaml (ns/node3)"
-    after2:  "param.yaml (ns/node3)"
-
 ```
 
-## override_param.launch.xml
+### override_param.launch.xml
+
+The difference between node1 and node2 is whether `before1` and `before2` are asigned.
 
 ```xml
 <launch>
   <arg name="param_file" default="$(find-pkg-share override_param)/config/config.param.yaml"/>
-  <node name="node1" pkg="override_param" exec="main" output="screen">
-      <param name="before1" value="launch"/>
-      <param name="before2" value="launch"/>
-      <param from="$(var param_file)"/>
-      <param name="after1" value="launch"/>
-      <param name="after2" value="launch"/>
-  </node>
   <group>
     <push-ros-namespace namespace="ns"/>
-    <node name="node2" pkg="override_param" exec="main" output="screen">
+    <node name="node1" pkg="override_param" exec="main" output="screen">
         <param name="before1" value="launch"/>
         <param name="before2" value="launch"/>
         <param from="$(var param_file)"/>
         <param name="after1" value="launch"/>
         <param name="after2" value="launch"/>
     </node>
-    <node name="node3" pkg="override_param" exec="main" output="screen">
+    <node name="node2" pkg="override_param" exec="main" output="screen">
         <param from="$(var param_file)"/>
         <param name="after1" value="launch"/>
         <param name="after2" value="launch"/>

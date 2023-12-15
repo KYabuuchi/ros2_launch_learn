@@ -1,4 +1,4 @@
 /**:
   ros__parameters:
-    before1: "$HOME"
-    before2: $HOME
+    before1: $HOME
+    before2: ${HOME}

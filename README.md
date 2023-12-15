@@ -5,7 +5,7 @@
 | node  | parameter name | actual stored value |
 |-------|----------------|---------------------|
 | node1 | before1        | $HOME               |
-| node1 | before2        | $HOME               |
+| node1 | before2        | ${HOME}             |
 | node1 | before1        | /home/kyabuuchi     |
 | node1 | before2        | /home/kyabuuchi     |
 
@@ -15,7 +15,7 @@
 /**:
   ros__parameters:
     before1: "$HOME"
-    before2: $HOME
+    before2: ${HOME}
 ```
 
 ## override_param.launch.xml
